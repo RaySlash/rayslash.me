@@ -3,19 +3,16 @@
 @tailwind utilities;
 
 :root {
-	--foreground-rgb: 0, 0, 0;
-	--background-start-rgb: 214, 219, 220;
-	--background-end-rgb: 255, 255, 255;
 	--bg: #1d2021;
+	--bg-soft: #32302f;
+	--bg-soft2: #504945;
 	--text: #f9f5d7;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--foreground-rgb: 255, 255, 255;
-		--background-start-rgb: 0, 0, 0;
-		--background-end-rgb: 0, 0, 0;
-	}
+	--orange: #d65d0e;
+	--red: #cc241d;
+	--green: #98971a;
+	--lightgreen: #b8bb26;
+	--yellow: #d79921;
+	--blue: #458588;
 }
 
 @layer utilities {
@@ -32,14 +29,81 @@ body {
 }
 
 .App {
-	font-family: Atkinson Hyperlegible;
+	font-family: var(--font-borel);
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 }
 
-.Navbar {
+.dashboard {
+	font-size: 1.2rem;
+	padding: 3rem 1rem 1rem 1rem;
+	display: flex;
+	background-color: var(--bg-soft2);
+	border-radius: 0 0 1rem 1rem;
+	color: var(--text);
+}
 
+.dashboardbubbles {
+	display: flex;
+	gap: 2rem;
+	font-size: 1.5rem;
+}
+
+.dashboardbubbles p {
+	font-size: 1rem;
+	padding: 1rem;
+	line-height: 1rem;
+	border-radius: 1rem;
+	background-color: var(--bg-soft);
+}
+
+.header-in {
+	font-size: 1.5rem;
+	color: var(--red);
+}
+
+.location {
+	color: var(--yellow);
+	display: flex;
+	gap: 0.2rem;
+}
+
+.rust {
+	color: var(--orange);
+}
+
+.kernel {
+	color: var(--red);
+}
+
+.developer {
+	color: var(--green);
+}
+
+.name {
+	color: var(--lightgreen);
+	font-weight: bold;
+	font-size: 3rem;
+}
+
+.university {
+	color: var(--blue);
+}
+
+.navitems {
+	font-size: 1.5rem;
+	padding: 1rem;
+	background-color: var(--bg-soft);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.nav-left,
+.nav-right {
+	display: flex;
+	gap: 2rem;
 }
 
 footer {
@@ -47,7 +111,7 @@ footer {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: gray;
+	background-color: var(--bg-soft);
 	padding: 1rem;
 	text-align: center;
 }

@@ -14,24 +14,30 @@
 
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import Dashboard from "./Dashboard";
+import { Atkinson_Hyperlegible } from "next/font/google";
 
+const atkinson = Atkinson_Hyperlegible({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-atkinson",
+});
 function App() {
-	return (
-		<div>
-			<Home />
-		</div>
-	);
+  return (
+    <div className={`${atkinson.variable} font-sans`}>
+      <Home />
+    </div>
+  );
 }
 
 function Home() {
-	return (
-		<div className="navbar">
-			<body>
-				<Navbar />
-			</body>
-			<Footer />
-		</div>
-	);
+  return (
+    <div className="navbar">
+      <Navbar />
+      <Dashboard />
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
