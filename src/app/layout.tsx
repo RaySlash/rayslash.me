@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Atkinson_Hyperlegible } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Steve Mathew Joy",
   description: "Personal Website",
 };
+
+const atkinson = Atkinson_Hyperlegible({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-atkinson",
+});
 
 export default function RootLayout({
   children,
@@ -16,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${atkinson.className}`}>{children}</body>
     </html>
   );
 }
