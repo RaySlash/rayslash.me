@@ -4,7 +4,6 @@ import { TfiLocationPin } from "react-icons/tfi";
 const borel = Borel({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-borel",
 });
 
 function Dashboard() {
@@ -18,12 +17,15 @@ function Dashboard() {
 function Header() {
   return (
     <div className="dashboarditems">
-      <p className={`${borel.variable} font-sans`}>I am</p>
-      <p className={`${borel.variable} font-sans name`}>Steve Mathew Joy</p>
-      <p className="location">
+      <p className={`${borel.className}`}>I am</p>
+      <p className={`${borel.className} name`}>Steve Mathew Joy</p>
+      <a
+        href="https://www.openstreetmap.org/#map=13/-27.4883/153.0072"
+        className="location"
+      >
         <TfiLocationPin />
         Brisbane, Australia
-      </p>
+      </a>
       <p>
         Final-year student{" "}
         <a className="university" href="https://federation.edu.au">
@@ -39,9 +41,9 @@ function Header() {
 function HeaderBubbles() {
   return (
     <div className="dashboarditems dashboardbubbles">
-      <p className="developer">DEVELOPER</p>
-      <p className="rust">RUSTACEAN</p>
-      <p className="kernel">LINUX EXPERT</p>
+      <p className="developer">Developer</p>
+      <p className="rust">Rustacean</p>
+      <p className="kernel">Linux Dev</p>
     </div>
   );
 }
