@@ -27,7 +27,6 @@ function Header() {
           @Federation-University, Australia
         </Link>
       </p>
-      <p>Tell me anything about computing and cars! Im IN!</p>
       <HeaderBubbles />
     </div>
   );
