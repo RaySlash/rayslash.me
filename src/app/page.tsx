@@ -1,7 +1,7 @@
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import Dashboard from "./Dashboard";
-import Contents from "./Contents";
+import Footer from "./footer";
+import Navbar from "./navbar";
+import Dashboard from "./dashboard";
+import Contents from "./contents";
 
 function App() {
   return (

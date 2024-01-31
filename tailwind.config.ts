@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-borel)", "var(--font-atkinson)"],
-        mono: ["var(--font-roboto-mono)"],
+        borel: ["var(--font-borel)"],
+        atkinson: ["var(--font-atkinson)"],
       },
     },
   },

@@ -1,7 +1,12 @@
-import Navbar from "../Navbar";
-import Footer from "../Footer";
+import Navbar from "../navbar";
+import Footer from "../footer";
+import { Metadata } from "next";
 
-function App() {
+export const metadata: Metadata = {
+  title: "Blog",
+};
+
+function Blog() {
   return (
     <div>
       <Navbar />
@@ -10,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default Blog;

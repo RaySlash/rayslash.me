@@ -1,10 +1,5 @@
-import { Borel } from "next/font/google";
 import { TfiLocationPin } from "react-icons/tfi";
-
-const borel = Borel({
-  weight: "400",
-  subsets: ["latin"],
-});
+import Link from "next/link";
 
 function Dashboard() {
   return (
@@ -17,20 +12,20 @@ function Dashboard() {
 function Header() {
   return (
     <div className="dashboarditems">
-      <p className={`${borel.className}`}>I am</p>
-      <p className={`${borel.className} name`}>Steve Mathew Joy</p>
-      <a
+      <p className="font-borel">I am</p>
+      <p className={`font-borel name`}>Steve Mathew Joy</p>
+      <Link
         href="https://www.openstreetmap.org/#map=13/-27.4883/153.0072"
         className="location"
       >
         <TfiLocationPin />
         Brisbane, Australia
-      </a>
+      </Link>
       <p>
         Final-year student{" "}
-        <a className="university" href="https://federation.edu.au">
+        <Link className="university" href="https://federation.edu.au">
           @Federation-University, Australia
-        </a>
+        </Link>
       </p>
       <p>Tell me anything about computing and cars! Im IN!</p>
       <HeaderBubbles />
