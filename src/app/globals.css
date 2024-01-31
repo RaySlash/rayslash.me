@@ -237,3 +237,24 @@ footer {
 	padding: 0.2rem;
 	text-align: center;
 }
+
+.projectcontents-container {
+	display: grid;
+	min-width: stretch;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+	gap: 2rem;
+}
+
+.proj-subcont {
+	border-radius: 1rem;
+	padding: 2rem;
+	background-color: var(--bg-soft2);
+}
+
+.project-title {
+	font-weight: 800;
+	font-size: 1.2rem;
+	padding-bottom: 1rem;
+}
