@@ -13,8 +13,8 @@ function ProjectContents() {
         <p>
           Nix Packages collection & NixOS. Add kernel package
           &apos;hidtmff2&apos; in nixpkgs. Source:{" "}
-          <Link href="https://github.com/NixOS/nixpkgs/pull/25738">
-            https://github.com/NixOS/nixpkgs/pull/25738
+          <Link href="https://github.com/NixOS/nixpkgs/pull/257386">
+            https://github.com/NixOS/nixpkgs/pull/257386
           </Link>
         </p>
       </div>
