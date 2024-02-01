@@ -12,7 +12,7 @@ function Dashboard() {
 function Header() {
   return (
     <div className="dashboarditems">
-      <p className="font-borel">I am</p>
+      <p className="font-borel name-sub">&#x1F44B; Hi, I am</p>
       <p className={`font-borel name`}>Steve Mathew Joy</p>
       <Link
         href="https://www.openstreetmap.org/#map=13/-27.4883/153.0072"
