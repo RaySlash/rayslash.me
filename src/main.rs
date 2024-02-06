@@ -1,16 +1,17 @@
 #![allow(non_snake_case)]
-
-use dioxus_router::prelude::*;
-
 use dioxus::prelude::*;
+use dioxus_free_icons::{
+    icons::{fa_brands_icons, fa_regular_icons},
+    Icon,
+};
+use dioxus_router::prelude::*;
 use log::LevelFilter;
 
 fn main() {
-    // Init debug
     dioxus_logger::init(LevelFilter::Info).expect("failed to init logger");
     console_error_panic_hook::set_once();
-
     log::info!("starting app");
+
     dioxus_web::launch(app);
 }
 
@@ -24,34 +25,85 @@ fn app(cx: Scope) -> Element {
 enum Route {
     #[route("/")]
     Home {},
-    #[route("/blog/:id")]
-    Blog { id: i32 },
+    #[route("/blog")]
+    Blog {},
 }
 
 #[component]
-fn Blog(cx: Scope, id: i32) -> Element {
-    render! {
-        Link { to: Route::Home {}, "Go to counter" }
-        "Blog post {id}"
-    }
+fn Navbar(cx: Scope) -> Element {
+    render!(
+        header {
+            div {
+                class: "nav-left",
+                Link {
+                    to: Route::Home {},
+                    "Home"
+                }
+                Link {
+                    to: Route::Blog {},
+                    "Blog"
+                }
+            }
+            div {
+                class: "nav-right",
+                Link {
+                    to: "https://github.com/rayslash",
+                    Icon {
+                        height: 20,
+                        width: 20,
+                        icon: fa_brands_icons::FaGithub,
+                    }
+                }
+                Link {
+                    to: "mailto:stevemathewjoy@tutanota.com",
+                    Icon {
+                        height: 20,
+                        width: 20,
+                        icon: fa_regular_icons::FaEnvelope,
+                    }
+                }
+            }
+        }
+    )
 }
+
+#[component]
+fn Dashboard(cx: Scope) -> Element {
+    let wave = emojis::get_by_shortcode("wave").unwrap();
+
+    render!(
+        div {
+            class: "dashboard",
+            p {
+                class: "tagline",
+                "{wave} Hi, I am"
+            }
+            p {
+                class: "name",
+                "Steve Mathew Joy"
+            }
+        }
+    )
+}
+
+// PAGES BELOW
 
 #[component]
 fn Home(cx: Scope) -> Element {
-    let mut count = use_state(cx, || 0);
-
-    cx.render(rsx! {
-        Link {
-            to: Route::Blog {
-                id: *count.get()
-            },
-            "Go to blog"
-        }
+    render! (
         div {
-            h1 { "High-Five counter: {count}" }
-            button { onclick: move |_| count += 1, "Up high!" }
-            button { onclick: move |_| count -= 1, "Down low!" }
-
+            Navbar {}
+            Dashboard {}
         }
-    })
+    )
+}
+
+#[component]
+fn Blog(cx: Scope) -> Element {
+    render!(
+        div {
+            Navbar {}
+            p { "My blog ajfvuasvf" }
+        }
+    )
 }

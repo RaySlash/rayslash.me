@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	/* Imported from https://github.com/folke/tokyonight.nvim/blob/610179f7f12db3d08540b6cc61434db2eaecbcff/lua/tokyonight/colors.lua#L7C3-L36C20 */
+	--color-bg: #24283b;
+	--color-bg_dark: #1f2335;
+	--color-bg: #24283b;
+	--color-bg_highlight: #292e42;
+	--color-terminal-black: #414868;
+	--color-fg: #c0caf5;
+	--color-fg_dark: #a9b1d6;
+	--color-fg_gutter: #3b4261;
+	--color-dark3: #545c7e;
+	--color-comment: #565f89;
+	--color-dark5: #737aa2;
+	--color-blue0: #3d59a1;
+	--color-blue: #7aa2f7;
+	--color-cyan: #7dcfff;
+	--color-blue1: #2ac3de;
+	--color-blue2: #0db9d7;
+	--color-blue5: #89ddff;
+	--color-blue6: #b4f9f8;
+	--color-blue7: #394b70;
+	--color-magenta: #bb9af7;
+	--color-magenta2: #ff007c;
+	--color-purple: #9d7cd8;
+	--color-orange: #ff9e64;
+	--color-yellow: #e0af68;
+	--color-green: #9ece6a;
+	--color-green1: #73daca;
+	--color-green2: #41a6b5;
+	--color-teal: #1abc9c;
+	--color-red: #f7768e;
+	--color-red1: #db4b4b;
+}
+
+body {
+	font-family: sans-serif;
+	margin: 2vh 10vw;
+	padding: 0;
+	border: 0;
+	background-color: var(--color-bg_dark);
+	color: var(--color-fg);
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.dashboard {
+	margin-top: 8vh;
+	min-height: 20vh;
+	padding: 2rem;
+	line-height: 1vh;
+	background-color: var(--color-dark3);
+	color: var(--color-fg_dark);
+	border-radius: 2rem;
+}
+
+.name {
+	font-size: 2rem;
+	font-weight: 800;
+}
+
+.nav-left,
+.nav-right {
+	display: flex;
+	gap: 2rem;
+}
+
+.nav-left a,
+.nav-right a {
+	text-decoration: none;
+	color: var(--color-fg_dark);
+}
+
+.nav-left a:hover,
+.nav-right a:hover {
+	color: var(--color-fg);
+}
