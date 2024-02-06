@@ -82,6 +82,15 @@ fn Dashboard(cx: Scope) -> Element {
                 class: "name",
                 "Steve Mathew Joy"
             }
+            p {
+                class: "tagline",
+                "Final-Year Student in Bachelors of IT"
+            }
+            Link {
+                class: "uni-link",
+                to: "https://federation.edu.au",
+                "@ Federation University, Australia"
+            }
         }
     )
 }
@@ -100,10 +109,42 @@ fn Home(cx: Scope) -> Element {
 
 #[component]
 fn Blog(cx: Scope) -> Element {
+    // let mut dropdown_collapsed = use_state(cx, || false);
+
     render!(
         div {
             Navbar {}
-            p { "My blog ajfvuasvf" }
+            p {
+                class: "page-title",
+                "My Blogs"
+            }
+            button {
+                // onclick: move |_| {
+                //     **dropdown_collapsed = !**dropdown_collapsed;
+                //     if **dropdown_collapsed {
+                //         render!(
+                //             div {
+                //                 class: "dropdown-list",
+                //                 Link {
+                //                     to: "https://google.com"
+                //                 }
+                //                 Link {
+                //                     to: "https://facebook.com"
+                //                 }
+                //                 Link {
+                //                     to: "https://instagram.com"
+                //                 }
+                //             }
+                //         )
+                //     } else {
+                //         render!(
+                //             div {}
+                //         )
+                //     }
+                // },
+                class: "sort-btn",
+                "(Sorted by recent)"
+            }
         }
     )
 }
