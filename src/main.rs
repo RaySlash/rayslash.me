@@ -4,19 +4,19 @@ use dioxus_free_icons::{
     icons::{fa_brands_icons, fa_regular_icons},
     Icon,
 };
-use dioxus_router::prelude::*;
-use log::LevelFilter;
+use log::Level;
 
 fn main() {
-    dioxus_logger::init(LevelFilter::Info).expect("failed to init logger");
+    let log_config = wasm_logger::Config::new(Level::Info);
+    wasm_logger::init(log_config);
     console_error_panic_hook::set_once();
     log::info!("starting app");
 
-    dioxus_web::launch(app);
+    dioxus::prelude::launch(app);
 }
 
-fn app(cx: Scope) -> Element {
-    render! {
+fn app() -> Element {
+    rsx! {
         Router::<Route> {}
     }
 }
@@ -30,8 +30,8 @@ enum Route {
 }
 
 #[component]
-fn Navbar(cx: Scope) -> Element {
-    render!(
+fn Navbar() -> Element {
+    rsx!(
         header {
             div {
                 class: "nav-left",
@@ -68,10 +68,10 @@ fn Navbar(cx: Scope) -> Element {
 }
 
 #[component]
-fn Dashboard(cx: Scope) -> Element {
+fn Dashboard() -> Element {
     let wave = emojis::get_by_shortcode("wave").unwrap();
 
-    render!(
+    rsx!(
         div {
             class: "dashboard",
             p {
@@ -96,8 +96,8 @@ fn Dashboard(cx: Scope) -> Element {
 }
 
 #[component]
-fn Home(cx: Scope) -> Element {
-    render! (
+fn Home() -> Element {
+    rsx! (
         div {
             Navbar {}
             Dashboard {}
@@ -294,7 +294,7 @@ fn Home(cx: Scope) -> Element {
                             "Mail Address"
                         }
                         input {
-                            id: "contactform-message",
+                            id: "conuse_signaltactform-message",
                             alt: "Message",
                             "Message"
                         }
@@ -306,10 +306,10 @@ fn Home(cx: Scope) -> Element {
 }
 
 #[component]
-fn Blog(cx: Scope) -> Element {
-    let mut dropdown_collapsed = use_state(cx, || false);
+fn Blog() -> Element {
+    let mut dropdown_collapsed = use_signal(|| false);
 
-    cx.render(rsx!(
+    rsx!(
         div {
             Navbar {}
             p {
@@ -318,31 +318,36 @@ fn Blog(cx: Scope) -> Element {
             }
             button {
                 onclick: move |_| {
-                    **dropdown_collapsed = !**dropdown_collapsed;
-                    if **dropdown_collapsed {
-                        render!(
-                            div {
-                                class: "dropdown-list",
-                                Link {
-                                    to: "https://google.com"
-                                }
-                                Link {
-                                    to: "https://facebook.com"
-                                }
-                                Link {
-                                    to: "https://instagram.com"
-                                }
-                            }
-                        )
-                    } else {
-                        render!(
-                            div {}
-                        )
-                    }
+                    dropdown_collapsed.set(!*dropdown_collapsed.read());
+                    log::info!("Button Pressed! {dropdown_collapsed}");
                 },
                 class: "sort-btn",
                 "(Sorted by recent)"
             }
+
+            if *dropdown_collapsed.read() {
+                {rsx! {
+                    div {
+                        class: "dropdown-list",
+                        Link {
+                            to: "https://google.com",
+                            "Google"
+                        }
+                        Link {
+                            to: "https://facebook.com",
+                            "Facebook"
+                        }
+                        Link {
+                            to: "https://instagram.com",
+                            "instagram"
+                        }
+                    }
+                }}
+            } else {
+                {rsx! {
+                    div {}
+                }
+            }}
         }
-    ))
+    )
 }
