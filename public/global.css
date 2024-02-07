@@ -215,8 +215,13 @@ button {
 	justify-content: center;
 }
 
-.dropdown-list a {
+.dropdown-list button {
+	color: var(--color-fg_dark);
 	padding: 0.5rem;
+}
+
+.dropdown-list button:hover {
+	color: var(--color-fg);
 }
 
 @media (max-width: 700px) {
