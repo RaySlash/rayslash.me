@@ -145,6 +145,80 @@ a {
 	justify-content: space-between;
 }
 
+.contactform {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.formitems {
+	background-color: var(--color-fg_dark);
+	color: var(--color-bg);
+	border-style: none;
+	min-width: 100%;
+	border-radius: 1rem;
+	padding: 0.5rem;
+	font-weight: 700;
+}
+
+.contactform-name,
+.contactform-email {
+	min-height: 5vh;
+}
+
+.contactform-message {
+	min-height: 10vh;
+}
+
+.sort-btn,
+button {
+	background-color: transparent;
+	color: var(--color-fg);
+	border-style: none;
+	padding: 0.5rem;
+}
+
+.sort-btn {
+	background-color: var(--color-bg);
+}
+
+.sort-btn:hover {
+	background-color: var(--color-bg_highlight);
+}
+
+.blogpost {
+	margin-top: 2rem;
+	padding: 1rem;
+	border-radius: 1rem;
+	background-color: var(--color-bg);
+}
+
+.blogpost:hover {
+	background-color: var(--color-bg_highlight);
+}
+
+.blogtitle {
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.sorting-area {
+	display: flex;
+}
+
+.dropdown-list {
+	background-color: var(--color-bg_highlight);
+	display: flex;
+	border: 20%;
+	border-color: var(--color-fg);
+	align-items: center;
+	justify-content: center;
+}
+
+.dropdown-list a {
+	padding: 0.5rem;
+}
+
 @media (max-width: 700px) {
 	.projects-subcontainer {
 		flex-direction: column;

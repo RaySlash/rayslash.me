@@ -5,6 +5,7 @@ use dioxus_free_icons::{
     Icon,
 };
 use log::Level;
+use rayslash_me;
 
 fn main() {
     let log_config = wasm_logger::Config::new(Level::Info);
@@ -115,16 +116,6 @@ fn Home() -> Element {
                         Icon {
                             width: 30,
                             height: 30,
-                            icon: fa_brands_icons::FaLinux
-                        }
-                        Icon {
-                            width: 30,
-                            height: 30,
-                            icon: fa_brands_icons::FaWindows
-                        }
-                        Icon {
-                            width: 30,
-                            height: 30,
                             icon: fa_brands_icons::FaHtml5
                         }
                         Icon {
@@ -156,6 +147,16 @@ fn Home() -> Element {
                             width: 30,
                             height: 30,
                             icon: fa_brands_icons::FaMarkdown
+                        }
+                        Icon {
+                            width: 30,
+                            height: 30,
+                            icon: fa_brands_icons::FaLinux
+                        }
+                        Icon {
+                            width: 30,
+                            height: 30,
+                            icon: fa_brands_icons::FaWindows
                         }
                         Icon {
                             width: 30,
@@ -282,22 +283,45 @@ fn Home() -> Element {
                     class: "homecontents-contact",
                     h3 { "Contact Me" }
                     form {
-                        class: "contactform",
-                        input {
-                            id: "contactform-name",
-                            alt: "Enter your name",
-                            "Name"
+                        div {
+                            class: "contactform",
+                            input {
+                                class: "formitems contactform-name",
+                                name: "Name",
+                                alt: "Enter your name",
+                                placeholder: "Enter your name",
+                                required: "true",
+                                minlength: "3",
+                                maxlength: "30",
+                                size: "10",
+                                "Name"
+                            }
                         }
-                        input {
-                            id: "contactform-email",
-                            alt: "Enter your email address",
-                            "Mail Address"
-                        }
-                        input {
-                            id: "conuse_signaltactform-message",
-                            alt: "Message",
-                            "Message"
-                        }
+                        div {
+                            class: "contactform",
+                            input {
+                                class: "formitems contactform-email",
+                                name: "Email",
+                                alt: "Enter your email address",
+                                placeholder: "Enter your email address",
+                                minlength: "3",
+                                maxlength: "30",
+                                size: "10",
+                                "Mail Address"
+                            }}
+                        div {
+                            class: "contactform",
+                            input {
+                                class: "formitems contactform-message",
+                                name: "Message",
+                                alt: "Enter the message",
+                                placeholder: "Enter the message",
+                                required: "true",
+                                minlength: "10",
+                                maxlength: "500",
+                                size: "50",
+                                "Message"
+                            }}
                     }
                 }
             }
@@ -308,6 +332,7 @@ fn Home() -> Element {
 #[component]
 fn Blog() -> Element {
     let mut dropdown_collapsed = use_signal(|| false);
+    let mut active_sort = use_signal(|| 0);
 
     rsx!(
         div {
@@ -316,38 +341,71 @@ fn Blog() -> Element {
                 class: "page-title",
                 "My Blogs"
             }
+
+            div {
+                class: "sorting-area",
             button {
                 onclick: move |_| {
-                    dropdown_collapsed.set(!*dropdown_collapsed.read());
-                    log::info!("Button Pressed! {dropdown_collapsed}");
+                    let collapsed = !*dropdown_collapsed.read();
+                    dropdown_collapsed.set(collapsed);
                 },
                 class: "sort-btn",
-                "(Sorted by recent)"
+                if *active_sort.read() == 0 {
+                    "Sort by: Recent"
+                }
+                if *active_sort.read() == 1 {
+                    "Sort by: Feeback"
+                }
+                if *active_sort.read() == 2 {
+                    "Sort by: Name"
+                }
             }
 
             if *dropdown_collapsed.read() {
-                {rsx! {
-                    div {
-                        class: "dropdown-list",
-                        Link {
-                            to: "https://google.com",
-                            "Google"
-                        }
-                        Link {
-                            to: "https://facebook.com",
-                            "Facebook"
-                        }
-                        Link {
-                            to: "https://instagram.com",
-                            "instagram"
+                {
+                    rsx! {
+                        div {
+                            class: "dropdown-list",
+                            button {
+                                onclick: move |_| {
+                                    let collapsed = !*dropdown_collapsed.read();
+                                    dropdown_collapsed.set(collapsed);
+                                    active_sort.set(0);
+                                },
+                                "Recent"
+                            }
+                            button {
+                                onclick: move |_| {
+                                    let collapsed = !*dropdown_collapsed.read();
+                                    dropdown_collapsed.set(collapsed);
+                                    active_sort.set(1);
+                                },
+                                "Feeback"
+                            }
+                            button {
+                                onclick: move |_| {
+                                    let collapsed = !*dropdown_collapsed.read();
+                                    dropdown_collapsed.set(collapsed);
+                                    active_sort.set(2);
+                                },
+                                "Name"
+                            }
                         }
                     }
-                }}
-            } else {
-                {rsx! {
-                    div {}
                 }
-            }}
+            } else {
+                {
+                    rsx! {
+                        div {}
+                    }
+                }
+            }
+            }
+
+            rayslash_me::blog::PostMinimal {}
+            rayslash_me::blog::PostMinimal {}
+            rayslash_me::blog::PostMinimal {}
+            rayslash_me::blog::PostMinimal {}
         }
     )
 }
