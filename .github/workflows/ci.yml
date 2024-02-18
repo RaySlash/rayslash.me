@@ -14,12 +14,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install Rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: wasm32-unknown-unknown
-          override: true
+      - name: Install NASM
+        uses: ilammy/setup-nasm@v1
 
       - name: Cache
         uses: actions/cache@v2
