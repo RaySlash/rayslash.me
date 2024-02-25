@@ -5,7 +5,6 @@ use dioxus_free_icons::{
     Icon,
 };
 use log::Level;
-use rayslash_me;
 
 fn main() {
     let log_config = wasm_logger::Config::new(Level::Info);
