@@ -1,0 +1,114 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { Icon } from 'astro-icon/components';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h3>👋 Hey there, I am</h3>
+			<h1>Steve Mathew Joy</h1>
+			<p class="tagline">
+				Studying <code>Bachelor of Information Technology</code><br>
+				Lives in Australia.<br>
+				Loves to code, develop real world applications.
+			</p>
+			<h3>Languages/Frameworks</h3>
+			<ul>
+				<li> <Icon name="mdi:language-rust"/>Rust</li>
+				<li> <Icon name="mdi:nix"/>Nix</li>
+				<li> <Icon name="mdi:language-lua"/>Lua</li>
+				<li> <Icon name="mdi:language-javascript"/>JavaScript</li>
+				<li> <Icon name="mdi:language-typescript"/>TypeScript</li>
+				<li> <Icon name="mdi:react"/>React</li>
+				<li> <Icon name="mdi:language-html5"/>HTML5</li>
+				<li> <Icon name="mdi:language-css3"/>CSS3</li>
+				<li> <Icon name="mdi:language-csharp"/>C#</li>
+				<li> <Icon name="mdi:language-cpp"/>C++</li>
+				<li> <Icon name="mdi:language-c"/>C</li>
+				<li> <Icon name="mdi:git"/>Git</li>
+				<li> <Icon name="mdi:terminal-line"/>Shell Script</li>
+				<li> <Icon name="mdi:language-markdown"/>Markdown</li>
+				<li> <Icon name="mdi:terminal"/>PowerShell</li>
+				<li> <Icon name="mdi:language-python"/>Python</li>
+				<li> <Icon name="mdi:linux"/>Linux</li>
+				<li> <Icon name="mdi:windows"/>Windows</li>
+				<li> <Icon name="mdi:terminal-line"/>Terminal</li>
+				<li> <Icon name="mdi:nodejs"/>NodeJS</li>
+				<li> <Icon name="mdi:npm"/>npm</li>
+				<li> <Icon name="mdi:wordpress"/>WordPress</li>
+				<li> <Icon name="mdi:android"/>Android</li>
+			</ul>
+			<h3>Recent Projects</h3>
+			<div class="projects">
+				<p><b> <Icon name="mdi:web" /> Typst Web-Desktop</b> A project made in Dioxus written in Rust programming language. This implements a simple UI for writing Latex-like Typst files and see the live preview.</p>
+				<p><b> <Icon name="mdi:code" /> NextJS Website</b> A personal website made using NextJS, TailwindCSS, React, TypeScript. This implements a simple UI representing my achievements and projects. This was also redone in Dioxus, a library in Rust and also in Astro.</p>
+				<p><b> <Icon name="mdi:nix" /> NixOS Config</b> A repository where I store my personal Nix derivations that build for my personal desktop and other devices that are primarily used for development.</p>
+				<p><b> <Icon name="mdi:android" /> Android Custom ROMs</b> Built Android custom ROMs such as LineageOS, Ressurection Remix, AOSP Extended etc. by obtaining the source code and developing device and kernel trees for specific devices to increase functionality or stability of the device.</p>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	code {
+		background-color: var(--accent-dark);
+	}
+
+	h1 {
+		color: var(--accent);
+	}
+
+	h3 {
+		padding-top: 0.5rem;
+		font-size: 1.8rem;
+	}
+
+	.projects {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.projects p {
+		backdrop-filter: blur(10px);
+		border-radius: 5px;
+		padding: 0.5rem;
+		display: flex;
+		flex-direction: column;
+	}
+
+	ul {
+		min-height: fit-content;
+		display: flex;
+		gap: 0.5rem;
+		justify-content: center;
+		flex-wrap: wrap;
+		padding: 0;
+		padding: 1rem 0;
+		margin: 0;
+		border: 0;
+	}
+
+	li {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.2rem;
+		background-color: var(--accent-dark);
+		color: rgb(var(--black));
+		border-radius: 5px;
+		padding: 0 0.5rem;
+		min-width: fit-content;
+		list-style: none;
+	}
+</style>

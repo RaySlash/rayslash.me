@@ -1,0 +1,76 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import { SITE_TITLE } from '../consts';
+import { Icon } from 'astro-icon/components';
+---
+
+<header>
+	<nav>
+		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<div class="internal-links">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+		</div>
+		<div class="social-links">
+			<a href="https://www.linkedin.com/in/steve-mathew-joy-630637198" target="_blank">
+				<span class="sr-only">Follow on LinkedIn</span>
+				<Icon name="mdi:linkedin"/>
+			</a>
+			<a href="https://www.facebook.com/steve.mathew.joy/" target="_blank">
+				<span class="sr-only">Follow on Twitter</span>
+				<Icon name="mdi:facebook"/>
+			</a>
+			<a href="https://github.com/rayslash" target="_blank">
+				<span class="sr-only">Go to RaySlash's GitHub</span>
+				<Icon name="mdi:github"/>
+			</a>
+		</div>
+	</nav>
+</header>
+<style>
+	svg {
+		width: 32px;
+		height: 32px;
+	}
+
+	header {
+		margin: 0;
+		padding: 0 1em;
+		background: rgba(var(--black), 1);
+		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+	}
+	h2 {
+		margin: 0;
+		font-size: 1em;
+	}
+
+	h2 a,
+	h2 a.active {
+		text-decoration: none;
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	nav a {
+		padding: 1em 0.5em;
+		color: var(--black);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+	}
+	nav a.active {
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
+	.social-links,
+	.social-links a {
+		display: flex;
+	}
+	@media (max-width: 720px) {
+		.social-links {
+			display: none;
+		}
+	}
+</style>
