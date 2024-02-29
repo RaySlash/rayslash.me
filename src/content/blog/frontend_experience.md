@@ -33,17 +33,19 @@ Choosing dioxus made things bit rough as I was following the _v0.4.3_ initially 
 
 ```js
 // JSX
-<div className='' >
+<div class='' >
   Hello World!
 </div>
+<myComponent />
 ```
 
 ```js
 // RSX
 div {
-  className: '',
+  class: '',
   "Hello World!"
 }
+myComponent {}
 ```
 
 ### Astro
