@@ -50,7 +50,7 @@ myComponent {}
 
 ### Astro
 
-I wanted to develop a personal blog portfolio which would contain information about me that uses Markdown `.md/.mdx` files as each blog post. Astro was the best renowed choice I have found so far for my personal blog. This website is currently built using Astro. Coming from React, Dioxus etc. I felt mucha t peace as it was simple to use. All I needed was to create html like files that have an extension of `.astro` which can have front-matter , style tag that is independent to the file and much more. I now could easily understand the setup and folder structure of Astro.
+I wanted to develop a personal blog portfolio which would contain information about me that uses Markdown `.md/.mdx` files as each blog post. Astro was the best renowed choice I have found so far for my personal blog. This website is currently built using Astro. Coming from React, Dioxus etc. I felt much at peace as it was simple to use. All I needed was to create html like files that have an extension of `.astro` which can have front-matter , style tag that is independent to the file and much more. I now could easily understand the setup and folder structure of Astro.
 
 I picked the main blog template and added a few global CSS options to make it unique and darker. The makdown files were in the directory `src/content/blog` which also had front-matter in them that contained information such as Blog Title, Author, Date, and Tags. This was amazing to setup and mostly effortless as I typically learnt not much from it rather used a viable product to easily create, manage and update my blog. See snippet for how I can write the markdown file:
 
