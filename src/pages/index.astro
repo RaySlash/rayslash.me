@@ -49,10 +49,10 @@ import { Icon } from 'astro-icon/components';
 			</ul>
 			<h3>Recent Projects</h3>
 			<div class="projects">
-				<p><b> <Icon name="mdi:web" /> Typst Web-Desktop</b> A project made in Dioxus written in Rust programming language. This implements a simple UI for writing Latex-like Typst files and see the live preview.</p>
-				<p><b> <Icon name="mdi:code" /> NextJS Website</b> A personal website made using NextJS, TailwindCSS, React, TypeScript. This implements a simple UI representing my achievements and projects. This was also redone in Dioxus, a library in Rust and also in Astro.</p>
-				<p><b> <Icon name="mdi:nix" /> NixOS Config</b> A repository where I store my personal Nix derivations that build for my personal desktop and other devices that are primarily used for development.</p>
-				<p><b> <Icon name="mdi:android" /> Android Custom ROMs</b> Built Android custom ROMs such as LineageOS, Ressurection Remix, AOSP Extended etc. by obtaining the source code and developing device and kernel trees for specific devices to increase functionality or stability of the device.</p>
+        <p><a class="project-heading" href="https://github.com/RaySlash/typst-webdesktop" > <Icon name="mdi:web" /> Typst Web-Desktop<Icon class="link-preview" name="mdi:link" /></a> A project made in Dioxus written in Rust programming language. This implements a simple UI for writing Latex-like Typst files and see the live preview.</p>
+        <p><a class="project-heading" href="https://github.com/RaySlash/rayslash.me" > <Icon name="mdi:code" /> NextJS Website<Icon class="link-preview" name="mdi:link" /></a> A personal website made using NextJS, TailwindCSS, React, TypeScript. This implements a simple UI representing my achievements and projects. This was also redone in Dioxus, a library in Rust and also in Astro.</p>
+        <p><a class="project-heading" href="https://github.com/RaySlash/nixos-config" > <Icon name="mdi:nix" /> NixOS Config<Icon class="link-preview" name="mdi:link" /></a> A repository where I store my personal Nix derivations that build for my personal desktop and other devices that are primarily used for development.</p>
+        <p><a class="project-heading" href="https://github.com/RaySlash?tab=repositories&q=android&type=&language=&sort=name" > <Icon name="mdi:android" /> Android Custom ROMs<Icon class="link-preview" name="mdi:link" /></a> Built Android custom ROMs such as LineageOS, Ressurection Remix, AOSP Extended etc. by obtaining the source code and developing device and kernel trees for specific devices to increase functionality or stability of the device.</p>
 			</div>
 		</main>
 		<Footer />
@@ -60,6 +60,26 @@ import { Icon } from 'astro-icon/components';
 </html>
 
 <style>
+  .project-heading {
+    color: rgb(var(--white));
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .project-heading:hover {
+    .link-preview {
+      align-items: center;
+      padding: 0 0.5rem;
+      visibility: visible;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  .link-preview {
+    visibility: hidden;
+    transition: all 0.2s ease-in-out;
+  }
+
 	code {
 		background-color: var(--accent-dark);
 		color: rgb(var(--black));
