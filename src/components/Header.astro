@@ -14,11 +14,11 @@ import { Icon } from 'astro-icon/components';
 		</div>
 		<div class="social-links">
 			<a href="https://www.linkedin.com/in/steve-mathew-joy-630637198" target="_blank">
-				<span class="sr-only">Follow on LinkedIn</span>
+				<span class="sr-only">Connect on LinkedIn</span>
 				<Icon name="mdi:linkedin"/>
 			</a>
 			<a href="https://www.facebook.com/steve.mathew.joy/" target="_blank">
-				<span class="sr-only">Follow on Twitter</span>
+				<span class="sr-only">Connect on Facebook</span>
 				<Icon name="mdi:facebook"/>
 			</a>
 			<a href="https://github.com/rayslash" target="_blank">
@@ -49,17 +49,30 @@ import { Icon } from 'astro-icon/components';
 	h2 a.active {
 		text-decoration: none;
 	}
+
+  h2:hover {
+    color: var(--accent-dark);
+    transition: color 0.3s ease;
+  }
+
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 	}
+
 	nav a {
 		padding: 1em 0.5em;
 		color: var(--black);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
+
+  nav a:hover {
+    color: var(--accent-dark);
+    transition: color 0.3s ease;
+  }
+
 	nav a.active {
 		text-decoration: none;
 		border-bottom-color: var(--accent);
@@ -68,7 +81,13 @@ import { Icon } from 'astro-icon/components';
 	.social-links a {
 		display: flex;
 	}
-	@media (max-width: 720px) {
+
+  .social-links a:hover {
+    color: var(--accent-dark);
+    transition: color 0.3s ease;
+  }
+	
+  @media (max-width: 720px) {
 		.social-links {
 			display: none;
 		}
