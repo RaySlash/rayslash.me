@@ -4,6 +4,9 @@ let
     typescript
     nil
     nixd
+    nodejs
+    yarn
+    lessc
     elmPackages.elm-test
     elmPackages.elm-live
     elmPackages.elm-review
@@ -11,9 +14,8 @@ let
     elmPackages.elm-language-server
   ];
   appDeps = with pkgs; [ nodejs elmPackages.elm ];
-in 
-  pkgs.mkShell {
-    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath appDeps;
-    nativeBuildInputs = devDeps ++ appDeps;
-  }
+in pkgs.mkShell {
+  LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath appDeps;
+  nativeBuildInputs = devDeps ++ appDeps;
+}
 
