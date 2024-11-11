@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "npx parcel index.html --lazy",
-    "build": "npx parcel build",
+    "start": "npx parcel index.html public/*.png public/*.svg",
+    "build": "npx parcel build index.html ./public/*.png public/*.svg",
     "elm-live": "elm-live src/Main.elm --port=1234"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "parcel": "^2.12.0"
   },
   "devDependencies": {
+    "@parcel/transformer-raw": "^2.12.0",
     "@parcel/transformer-elm": "2.12.0",
     "@parcel/transformer-less": "^2.12.0"
   }

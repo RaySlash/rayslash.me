@@ -1,8 +1,32 @@
-module Main exposing (main)
+port module Main exposing (main)
 
 import Browser
-import Html exposing (Html, button, div, text)
-import Html.Events exposing (onClick)
+import Components exposing (heroCard, homeNavbar, navbar, projectView)
+import Html exposing (Html, div, img)
+import Html.Attributes exposing (alt, class, src)
+import Random
+import Utils exposing (getCombinedColorGenerator, getRandomDarkColor, getRandomLightColor, sendMsg)
+
+
+type ColorMode
+    = LightMode
+    | DarkMode
+
+
+type Msg
+    = ToggleColorMode
+    | SendColor ( Int, Int, Int )
+
+
+type alias Model =
+    { colormode : ColorMode
+    , red : Int
+    , green : Int
+    , blue : Int
+    }
+
+
+port sendRandomColor : ( Int, Int, Int ) -> Cmd msg
 
 
 main : Program () Model Msg
@@ -15,28 +39,40 @@ main =
         }
 
 
-type alias Model =
-    Int
-
-
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( 0, Cmd.none )
-
-
-type Msg
-    = Increment
-    | Decrement
+    ( { colormode = LightMode, red = 0, green = 0, blue = 0 }
+    , Cmd.batch [ sendMsg ToggleColorMode ]
+    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Increment ->
-            ( model + 1, Cmd.none )
+        ToggleColorMode ->
+            let
+                newColorMode =
+                    case model.colormode of
+                        LightMode ->
+                            DarkMode
 
-        Decrement ->
-            ( model - 1, Cmd.none )
+                        DarkMode ->
+                            LightMode
+
+                colorGen =
+                    case newColorMode of
+                        LightMode ->
+                            getCombinedColorGenerator getRandomLightColor
+
+                        DarkMode ->
+                            getCombinedColorGenerator getRandomDarkColor
+            in
+            ( { model | colormode = newColorMode }
+            , Random.generate SendColor colorGen
+            )
+
+        SendColor ( r, g, b ) ->
+            ( { model | red = r, green = g, blue = b }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -46,8 +82,16 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ button [ onClick Decrement ] [ text "-" ]
-        , div [] [ text (String.fromInt model) ]
-        , button [ onClick Increment ] [ text "+" ]
+    div [ class "container" ]
+        [ navbar
+        , div
+            [ class "content-container"
+            ]
+            [ div [ class "hero" ]
+                [ heroCard
+                , img [ class "hero-image", src "../public/hero.png", alt "Profile Image" ] []
+                ]
+            , homeNavbar
+            , projectView
+            ]
         ]
