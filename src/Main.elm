@@ -1,28 +1,29 @@
 port module Main exposing (main)
 
-import Browser
-import Components exposing (heroCard, homeNavbar, navbar, projectView)
-import Html exposing (Html, div, img)
-import Html.Attributes exposing (alt, class, src)
-import Random
-import Utils exposing (getCombinedColorGenerator, getRandomDarkColor, getRandomLightColor, sendMsg)
-
-
-type ColorMode
-    = LightMode
-    | DarkMode
+import Browser exposing (Document, UrlRequest)
+import Browser.Navigation as Nav
+import Components exposing (heroCard, navbar, projectView)
+import Css exposing (color, rgb)
+import Html.Styled exposing (Html, button, div, img, text, toUnstyled)
+import Html.Styled.Attributes exposing (alt, class, css, src)
+import Url exposing (Url)
 
 
 type Msg
-    = ToggleColorMode
-    | SendColor ( Int, Int, Int )
+    = LinkClicked UrlRequest
+    | UrlChanged Url
+    | ToggleColorMode ColorMode
+
+
+type ColorMode
+    = Light
+    | Dark
 
 
 type alias Model =
-    { colormode : ColorMode
-    , red : Int
-    , green : Int
-    , blue : Int
+    { key : Nav.Key
+    , url : Url.Url
+    , colormode : ColorMode
     }
 
 
@@ -31,48 +32,46 @@ port sendRandomColor : ( Int, Int, Int ) -> Cmd msg
 
 main : Program () Model Msg
 main =
-    Browser.element
+    Browser.application
         { init = init
         , update = update
         , view = view
         , subscriptions = subscriptions
+        , onUrlChange = UrlChanged
+        , onUrlRequest = LinkClicked
         }
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( { colormode = LightMode, red = 0, green = 0, blue = 0 }
-    , Cmd.batch [ sendMsg ToggleColorMode ]
+init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
+init flags url key =
+    ( Model key url Light
+    , Cmd.none
     )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        ToggleColorMode ->
-            let
-                newColorMode =
-                    case model.colormode of
-                        LightMode ->
-                            DarkMode
+        LinkClicked urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model, Nav.pushUrl model.key (Url.toString url) )
 
-                        DarkMode ->
-                            LightMode
+                Browser.External href ->
+                    ( model, Nav.load href )
 
-                colorGen =
-                    case newColorMode of
-                        LightMode ->
-                            getCombinedColorGenerator getRandomLightColor
-
-                        DarkMode ->
-                            getCombinedColorGenerator getRandomDarkColor
-            in
-            ( { model | colormode = newColorMode }
-            , Random.generate SendColor colorGen
+        UrlChanged url ->
+            ( { model | url = url }
+            , Cmd.none
             )
 
-        SendColor ( r, g, b ) ->
-            ( { model | red = r, green = g, blue = b }, Cmd.none )
+        ToggleColorMode mode ->
+            case mode of
+                Light ->
+                    ( { model | colormode = Light }, Cmd.none )
+
+                Dark ->
+                    ( { model | colormode = Dark }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -80,18 +79,37 @@ subscriptions model =
     Sub.none
 
 
-view : Model -> Html Msg
-view model =
-    div [ class "container" ]
-        [ navbar
-        , div
-            [ class "content-container"
-            ]
-            [ div [ class "hero" ]
-                [ heroCard
-                , img [ class "hero-image", src "../public/hero.png", alt "Profile Image" ] []
-                ]
-            , homeNavbar
-            , projectView
-            ]
+homeNavbar : Html Msg
+homeNavbar =
+    div [ class "homenav" ]
+        [ button [ class "homenav-item" ] [ text "Projects" ]
+        , button [ class "homenav-item" ] [ text "Work" ]
+        , button [ class "homenav-item" ] [ text "Communities" ]
+        , button [ class "homenav-item" ] [ text "Background" ]
+        , button [ class "homenav-item" ] [ text "Fun" ]
         ]
+
+
+view : Model -> Document Msg
+view model =
+    { title = "Ray"
+    , body =
+        List.map toUnstyled
+            [ div
+                [ class "container"
+                , css [ color (rgb 255 255 255) ]
+                ]
+                [ navbar
+                , div
+                    [ class "content-container"
+                    ]
+                    [ div [ class "hero" ]
+                        [ heroCard
+                        , img [ class "hero-image", src "../public/images/hero.png", alt "Profile Image" ] []
+                        ]
+                    , homeNavbar
+                    , projectView
+                    ]
+                ]
+            ]
+    }
