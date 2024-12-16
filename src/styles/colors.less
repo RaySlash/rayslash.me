@@ -1,0 +1,83 @@
+@primary-color: #f5f5f5;
+@primary-hover: #0056b3;
+@text-color: #000;
+@bg-color: #ffffff;
+@showcard-bg: linear-gradient(135deg, #e6e0f2, #e2d4f5);
+@showcard-bg-alt: linear-gradient(135deg, #d4d3eb, #c9c8e6);
+
+@dark-bg-color: @text-color;
+@dark-text-color: @bg-color;
+@dark-primary-color: #1e88e5;
+@dark-showcard-bg: #362f3f;
+@dark-showcard-bg-alt: #2b2a3b;
+
+.darkmode {
+  body,
+  .container,
+  button,
+  a,
+  .content-container {
+    background-color: @dark-bg-color;
+    color: @dark-text-color;
+  }
+
+  button > img,
+  a > img {
+    filter: invert(1);
+  }
+
+  .card {
+    background-color: @dark-showcard-bg;
+    border-color: @dark-showcard-bg-alt;
+    color: @dark-text-color;
+
+    &-header {
+      color: @dark-text-color;
+    }
+  }
+
+  .navbar {
+    background-color: @dark-bg-color;
+    color: @dark-text-color;
+
+    &-links a {
+      color: @dark-text-color;
+    }
+  }
+
+  .homenav {
+    background: linear-gradient(
+      90deg,
+      @dark-bg-color 37%,
+      @dark-primary-color 100%
+    );
+
+    &-item:hover {
+      background-color: @dark-bg-color;
+    }
+  }
+
+  .hero {
+    &-content {
+      background: linear-gradient(
+        90deg,
+        @dark-bg-color 0%,
+        @dark-primary-color 100%
+      );
+    }
+  }
+
+  .showcard > div {
+    background-color: @dark-showcard-bg;
+  }
+
+  .contact-button {
+    background-color: @dark-primary-color;
+    color: @dark-text-color;
+
+    &:hover {
+      background-color: @dark-primary-color;
+      color: @dark-text-color;
+    }
+  }
+}

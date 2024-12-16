@@ -1,0 +1,30 @@
+@media (max-width: 900px) {
+  .container {
+    padding: 0 0.5rem;
+    min-width: 100%;
+  }
+  .hero {
+    flex-direction: column;
+    &-content {
+      padding: 3rem 1rem;
+      min-width: 100%;
+    }
+    &-image {
+      min-width: 100%;
+    }
+    &-buttons {
+      .flex-col();
+    }
+    &-social-links {
+      justify-content: center;
+    }
+  }
+  .homenav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .home-content {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.5rem;
+  }
+}

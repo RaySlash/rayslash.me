@@ -1,0 +1,25 @@
+.spacing(@direction, @amount: 1rem) {
+  @{direction}: @amount;
+}
+
+.mt-1 {
+  .spacing(margin-top);
+}
+.mb-1 {
+  .spacing(margin-bottom);
+}
+.ml-1 {
+  .spacing(margin-left);
+}
+.mr-1 {
+  .spacing(margin-right);
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}

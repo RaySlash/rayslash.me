@@ -13,27 +13,33 @@
         inputs.devshell.flakeModule
       ];
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
-      perSystem = {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        ...
-      }: let
+      perSystem = {pkgs, ...}: let
         devDeps = with pkgs; [
           lessc
+          pnpm
+          nodejs
           elmPackages.elm
           elmPackages.elm-format
-          elmPackages.elm-live
         ];
       in {
-        devshells.default = {
-          devshell = {
-            name = "ELM | rayslash.me";
-            packages = devDeps;
-            meta = {
-              description = "Dev Environment | Elm | rayslash.me";
+        devshells = {
+          default = {
+            commands = [
+              # {
+              #   help = ''
+              #     USAGE: elm-build
+              #     INFO: Build optimized output to /dist/index.html
+              #   '';
+              #   name = "elm-build";
+              #   command = builtins.readFile ./scripts/build.bash;
+              # }
+            ];
+            devshell = {
+              name = "ELM | rayslash.me";
+              packages = devDeps;
+              meta = {
+                description = "Dev Environment | Elm | rayslash.me";
+              };
             };
           };
         };

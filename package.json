@@ -1,0 +1,28 @@
+{
+  "name": "rayslash_elm",
+  "version": "1.0.0",
+  "description": "Personal Website",
+  "scripts": {
+    "dev": "pnpx parcel index.html assets/images/*.png assets/images/*.jpg assets/icons/*svg -p 1234",
+    "build": "pnpx parcel build index.html assets/images/*.png assets/images/*.jpg assets/icons/*svg",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rayslash/rayslash.me.git"
+  },
+  "author": "RaySlash <stevemathewjoy@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rayslash/rayslash.me/issues"
+  },
+  "homepage": "https://github.com/rayslash/rayslash.me#readme",
+  "dependencies": {
+    "parcel": "^2.13.2"
+  },
+  "devDependencies": {
+    "@parcel/transformer-elm": "2.13.2",
+    "@parcel/transformer-less": "2.13.2",
+    "elm": "^0.19.1-5"
+  }
+}

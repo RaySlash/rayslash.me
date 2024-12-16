@@ -1,29 +1,21 @@
 module Components exposing (..)
 
-import Css exposing (Color, display, hex, inlineBlock, margin, rem, rgb)
-import Html.Styled exposing (Html, a, button, div, h1, h3, img, nav, p, text)
-import Html.Styled.Attributes exposing (alt, class, css, height, href, src, width)
+import Html exposing (Html, a, button, div, h1, h3, img, nav, p, text)
+import Html.Attributes exposing (alt, class, classList, height, href, id, src, width)
+import Html.Events exposing (onClick)
+import Html.Keyed as Keyed
+import Types exposing (..)
+import Utils exposing (routeToHref, routeToString)
 
 
 
 -- Primitives
 
 
-theme : { secondary : Color, primary : Color }
-theme =
-    { primary = hex "55af6a"
-    , secondary = rgb 250 240 230
-    }
-
-
 card : Html msg -> Html msg -> Html msg -> Html msg
 card header content footer =
     div
         [ class "container"
-        , css
-            [ display inlineBlock
-            , margin (rem 1)
-            ]
         ]
         [ div [ class "card-header" ] [ header ]
         , div [ class "card-content" ] [ content ]
@@ -41,6 +33,37 @@ showCard title description imageUri =
         ]
 
 
+colortoggleButton : ColorMode -> Html Msg
+colortoggleButton mode =
+    button
+        [ class "toggle-button"
+        , onClick
+            (ToggleColorMode
+                (if mode == Light then
+                    Dark
+
+                 else
+                    Light
+                )
+            )
+        ]
+        [ img
+            [ alt "Color Scheme"
+            , class "colortoggle-button"
+            , width 20
+            , height 20
+            , src
+                (if mode == Light then
+                    "./assets/icons/moon.svg"
+
+                 else
+                    "./assets/icons/sun.svg"
+                )
+            ]
+            []
+        ]
+
+
 
 -- Drop-in Components
 
@@ -51,17 +74,17 @@ heroCard =
         [ div [ class "hero-header" ]
             [ h1 [ class "hero-title" ] [ text "Hi, I’m Steve Mathew Joy, a student software developer" ]
             , div [ class "hero-location" ]
-                [ img [ src "../public/images/map-pin-alt.svg", alt "Location", class "location-icon", width 30, height 30 ] []
+                [ img [ src "./assets/icons/map-pin-alt.svg", alt "Location", class "location-icon", width 30, height 30 ] []
                 , text "Brisbane, Australia"
                 ]
             ]
         , div [ class "hero-buttons" ]
             [ button [ class "hero-button contact-button" ] [ a [ href "#", class "social-link" ] [ text "Contact Me" ] ]
             , div [ class "hero-social-links" ]
-                [ button [ class "hero-button" ] [ a [ href "#", class "social-link github" ] [ img [ src "../public/icons/github.svg", alt "github" ] [] ] ]
-                , button [ class "hero-button" ] [ a [ href "#", class "social-link facebook" ] [ img [ src "../public/icons/facebook.svg", alt "facebook" ] [] ] ]
-                , button [ class "hero-button" ] [ a [ href "#", class "social-link instagram" ] [ img [ src "../public/icons/instagram.svg", alt "instagram" ] [] ] ]
-                , button [ class "hero-button" ] [ a [ href "#", class "social-link linkedin" ] [ img [ src "../public/icons/linkedin.svg", alt "linkedin" ] [] ] ]
+                [ button [ class "hero-button" ] [ a [ href "#", class "social-link github" ] [ img [ src "./assets/icons/github.svg", alt "github" ] [] ] ]
+                , button [ class "hero-button" ] [ a [ href "#", class "social-link facebook" ] [ img [ src "./assets/icons/facebook.svg", alt "facebook" ] [] ] ]
+                , button [ class "hero-button" ] [ a [ href "#", class "social-link instagram" ] [ img [ src "./assets/icons/instagram.svg", alt "instagram" ] [] ] ]
+                , button [ class "hero-button" ] [ a [ href "#", class "social-link linkedin" ] [ img [ src "./assets/icons/linkedin.svg", alt "linkedin" ] [] ] ]
                 ]
             ]
         ]
@@ -70,22 +93,39 @@ heroCard =
 projectView : Html msg
 projectView =
     div [ class "home-content" ]
-        [ showCard "Work Experience Tracker App" "A social-media like application that allows students and teachers to collaborate about their work experiences in classes." "../public/images/workexptracker.png"
-        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "../public/images/nixos.png"
-        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "../public/images/nixos.png"
-        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "../public/images/nixos.png"
-        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "../public/images/nixos.png"
+        [ showCard "Work Experience Tracker App" "A social-media like application that allows students and teachers to collaborate about their work experiences in classes." "./assets/images/workexptracker.png"
+        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "./assets/images/nixos.png"
+        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "./assets/images/nixos.png"
+        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "./assets/images/nixos.png"
+        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "./assets/images/nixos.png"
         ]
 
 
-navbar : Html msg
-navbar =
-    nav [ class "navbar" ]
+navbar : Model -> Html Msg
+navbar model =
+    nav
+        [ class "navbar"
+        , id ("navbar-" ++ routeToString model.route)
+        ]
         [ div [ class "navbar-logo" ]
-            [ a [ href "#", class "logo-link" ] [ text "STEVE" ] ]
-        , div [ class "navbar-links" ]
-            [ a [ href "#", class "nav-link active" ] [ text "Home" ]
-            , a [ href "#", class "nav-link" ] [ text "Contact" ]
-            , a [ href "#", class "nav-link" ] [ text "Blog" ]
+            [ a [ href "/", class "logo-link" ] [ text "STEVE" ] ]
+        , div
+            [ class "navbar-links" ]
+            [ colortoggleButton model.colormode
+            , navLink model Home "Home"
+            , navLink model Contact "Contact"
+            , navLink model Blog "Blog"
             ]
         ]
+
+
+navLink : Model -> Route -> String -> Html Msg
+navLink model route label =
+    a
+        [ href (routeToHref route)
+        , classList
+            [ ( "nav-link", True )
+            , ( "active-route", model.route == route )
+            ]
+        ]
+        [ text label ]

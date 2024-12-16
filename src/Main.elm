@@ -1,33 +1,14 @@
-port module Main exposing (main)
+module Main exposing (main)
 
-import Browser exposing (Document, UrlRequest)
+import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Components exposing (heroCard, navbar, projectView)
-import Css exposing (color, rgb)
-import Html.Styled exposing (Html, button, div, img, text, toUnstyled)
-import Html.Styled.Attributes exposing (alt, class, css, src)
+import Html exposing (Html, a, button, div, img, text)
+import Html.Attributes exposing (alt, class, src)
+import Pages.Home exposing (homeView)
+import Types exposing (..)
 import Url exposing (Url)
-
-
-type Msg
-    = LinkClicked UrlRequest
-    | UrlChanged Url
-    | ToggleColorMode ColorMode
-
-
-type ColorMode
-    = Light
-    | Dark
-
-
-type alias Model =
-    { key : Nav.Key
-    , url : Url.Url
-    , colormode : ColorMode
-    }
-
-
-port sendRandomColor : ( Int, Int, Int ) -> Cmd msg
+import Url.Parser exposing (Parser, map, oneOf, parse, s, top)
 
 
 main : Program () Model Msg
@@ -42,9 +23,28 @@ main =
         }
 
 
+route : Parser (Route -> a) a
+route =
+    oneOf
+        [ map Home top
+        , map Contact (s "contact")
+        , map Blog (s "blog")
+        ]
+
+
+parseRoute : Url.Url -> Route
+parseRoute url =
+    case parse route url of
+        Just matchedRoute ->
+            matchedRoute
+
+        Nothing ->
+            NotFound
+
+
 init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
-    ( Model key url Light
+    ( Model key url (parseRoute url) Light
     , Cmd.none
     )
 
@@ -79,37 +79,32 @@ subscriptions model =
     Sub.none
 
 
-homeNavbar : Html Msg
-homeNavbar =
-    div [ class "homenav" ]
-        [ button [ class "homenav-item" ] [ text "Projects" ]
-        , button [ class "homenav-item" ] [ text "Work" ]
-        , button [ class "homenav-item" ] [ text "Communities" ]
-        , button [ class "homenav-item" ] [ text "Background" ]
-        , button [ class "homenav-item" ] [ text "Fun" ]
-        ]
-
-
 view : Model -> Document Msg
 view model =
     { title = "Ray"
     , body =
-        List.map toUnstyled
-            [ div
-                [ class "container"
-                , css [ color (rgb 255 255 255) ]
-                ]
-                [ navbar
-                , div
-                    [ class "content-container"
-                    ]
-                    [ div [ class "hero" ]
-                        [ heroCard
-                        , img [ class "hero-image", src "../public/images/hero.png", alt "Profile Image" ] []
-                        ]
-                    , homeNavbar
-                    , projectView
-                    ]
-                ]
+        [ div
+            [ class
+                (if model.colormode == Dark then
+                    "container darkmode"
+
+                 else
+                    "container"
+                )
             ]
+            [ navbar model
+            , case model.route of
+                Home ->
+                    homeView model
+
+                Contact ->
+                    homeView model
+
+                Blog ->
+                    homeView model
+
+                NotFound ->
+                    homeView model
+            ]
+        ]
     }
