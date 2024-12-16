@@ -4,7 +4,9 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Components exposing (navbar)
 import Html exposing (div)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, classList)
+import Pages.Blog exposing (blogView)
+import Pages.Contact exposing (contactView)
 import Pages.Home exposing (homeView)
 import Types exposing (..)
 import Url exposing (Url)
@@ -55,7 +57,7 @@ update msg model =
         LinkClicked urlRequest ->
             case urlRequest of
                 Browser.Internal url ->
-                    ( model, Nav.pushUrl model.key (Url.toString url) )
+                    ( { model | route = parseRoute url }, Nav.pushUrl model.key (Url.toString url) )
 
                 Browser.External href ->
                     ( model, Nav.load href )
@@ -98,13 +100,10 @@ view model =
     { title = "Ray"
     , body =
         [ div
-            [ class
-                (if model.colormode == Dark then
-                    "container darkmode"
-
-                 else
-                    "container"
-                )
+            [ classList
+                [ ( "container", True )
+                , ( "darkmode", model.colormode == Dark )
+                ]
             ]
             [ navbar model
             , case model.route of
@@ -112,10 +111,10 @@ view model =
                     homeView model
 
                 Contact ->
-                    homeView model
+                    contactView model
 
                 Blog ->
-                    homeView model
+                    blogView model
 
                 NotFound ->
                     homeView model
