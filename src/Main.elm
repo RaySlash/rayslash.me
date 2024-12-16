@@ -2,9 +2,9 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Components exposing (heroCard, navbar, projectView)
-import Html exposing (Html, a, button, div, img, text)
-import Html.Attributes exposing (alt, class, src)
+import Components exposing (navbar)
+import Html exposing (div)
+import Html.Attributes exposing (class)
 import Pages.Home exposing (homeView)
 import Types exposing (..)
 import Url exposing (Url)
@@ -44,7 +44,7 @@ parseRoute url =
 
 init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
-    ( Model key url (parseRoute url) Light
+    ( Model key url (parseRoute url) Projects Light
     , Cmd.none
     )
 
@@ -64,6 +64,20 @@ update msg model =
             ( { model | url = url }
             , Cmd.none
             )
+
+        ToggleHomeRoute homeroute ->
+            case homeroute of
+                Projects ->
+                    ( { model | homeroute = Projects }, Cmd.none )
+
+                Communities ->
+                    ( { model | homeroute = Communities }, Cmd.none )
+
+                Work ->
+                    ( { model | homeroute = Work }, Cmd.none )
+
+                Misc ->
+                    ( { model | homeroute = Misc }, Cmd.none )
 
         ToggleColorMode mode ->
             case mode of

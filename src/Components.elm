@@ -23,27 +23,18 @@ card header content footer =
         ]
 
 
-showCard : String -> String -> String -> Html msg
-showCard title description imageUri =
-    div [ class "showcard" ]
-        [ card
-            (h3 [ class "showcard-title" ] [ text title ])
-            (p [ class "showcard-description" ] [ text description ])
-            (img [ src imageUri, alt "Project Image", class "showcard-image" ] [])
-        ]
-
-
 colortoggleButton : ColorMode -> Html Msg
 colortoggleButton mode =
     button
         [ class "toggle-button"
         , onClick
             (ToggleColorMode
-                (if mode == Light then
-                    Dark
+                (case mode of
+                    Light ->
+                        Dark
 
-                 else
-                    Light
+                    Dark ->
+                        Light
                 )
             )
         ]
@@ -53,11 +44,12 @@ colortoggleButton mode =
             , width 20
             , height 20
             , src
-                (if mode == Light then
-                    "./assets/icons/moon.svg"
+                (case mode of
+                    Light ->
+                        "./assets/icons/moon.svg"
 
-                 else
-                    "./assets/icons/sun.svg"
+                    Dark ->
+                        "./assets/icons/sun.svg"
                 )
             ]
             []
@@ -90,17 +82,6 @@ heroCard =
         ]
 
 
-projectView : Html msg
-projectView =
-    div [ class "home-content" ]
-        [ showCard "Work Experience Tracker App" "A social-media like application that allows students and teachers to collaborate about their work experiences in classes." "./assets/images/workexptracker.png"
-        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "./assets/images/nixos.png"
-        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "./assets/images/nixos.png"
-        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "./assets/images/nixos.png"
-        , showCard "NixOS Desktop Configuration" "A declarative configuration written in Nix for multiple systems" "./assets/images/nixos.png"
-        ]
-
-
 navbar : Model -> Html Msg
 navbar model =
     nav
@@ -111,8 +92,8 @@ navbar model =
             [ a [ href "/", class "logo-link" ] [ text "STEVE" ] ]
         , div
             [ class "navbar-links" ]
-            [ colortoggleButton model.colormode
-            , navLink model Home "Home"
+            [ -- colortoggleButton model.colormode,
+              navLink model Home "Home"
             , navLink model Contact "Contact"
             , navLink model Blog "Blog"
             ]

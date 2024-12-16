@@ -9,6 +9,7 @@ type alias Model =
     { key : Nav.Key
     , url : Url.Url
     , route : Route
+    , homeroute : HomeRoute
     , colormode : ColorMode
     }
 
@@ -16,6 +17,7 @@ type alias Model =
 type Msg
     = LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
+    | ToggleHomeRoute HomeRoute
     | ToggleColorMode ColorMode
 
 
@@ -29,6 +31,13 @@ type Route
     | Contact
     | Blog
     | NotFound
+
+
+type HomeRoute
+    = Projects
+    | Work
+    | Communities
+    | Misc
 
 
 type ButtonVariant

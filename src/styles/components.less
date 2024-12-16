@@ -8,10 +8,11 @@
 }
 
 .card {
-  background-color: @bg-color;
   border-radius: 6px;
   padding: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: @text-color;
+  background-color: @bg-color;
 
   &-header {
     font-size: 1.25rem;
@@ -40,17 +41,8 @@
   &-links {
     display: flex;
     align-items: center;
+    margin-top: 0.5rem;
     gap: 1rem;
-  }
-}
-
-.toggle-button {
-  background-color: @bg-color;
-  color: @text-color;
-  &:hover {
-    & > img {
-      filter: invert(1);
-    }
   }
 }
 
@@ -99,7 +91,6 @@
 
 .homenav {
   padding: 0.5rem;
-  background: rgb(248, 243, 255);
   background: linear-gradient(
     90deg,
     rgba(248, 243, 255, 1) 37%,
@@ -115,7 +106,13 @@
     cursor: pointer;
     &:hover {
       background-color: @bg-color;
+      color: @text-color;
     }
+  }
+  &-active-item {
+    background-color: @text-color;
+    color: @bg-color;
+    font-weight: 500;
   }
 }
 
@@ -150,16 +147,47 @@
     gap: 0.2rem;
     border-radius: 1.5rem;
     padding: 2rem;
-    background-color: @showcard-bg;
+    background-color: rgba(248, 243, 255, 1);
+    color: @text-color;
   }
-
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   &-title {
     margin-top: 1rem;
+    font-weight: 500;
   }
   &-image {
     display: block;
     margin: 0 auto;
     max-height: 400px;
     object-fit: cover;
+  }
+}
+
+.workcard {
+  &-header {
+    .flex-col();
+    justify-content: flex-start;
+  }
+  &-designation {
+    font-size: 0.9rem;
+    font-weight: 100;
+    font-style: italic;
+  }
+  & ul li {
+    list-style: square inside;
+    padding: 0.2rem 0;
+  }
+}
+
+.toggle-button {
+  &:hover {
+    &,
+    & > * {
+      filter: invert(1);
+    }
   }
 }
